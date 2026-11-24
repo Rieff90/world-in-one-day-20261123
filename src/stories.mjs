@@ -180,14 +180,7 @@ export const TILES = [
     source: 'AP · NYT',
   },
   {
-    no: 18, band: 'megaphone', colour: '#8a4a12', badge: 'STRIKE',
-    place: 'Belgium', label: '',
-    title: 'National anti-austerity strike paralyses Belgian transport',
-    line: 'Commuters stranded across Brussels as unions demand tax fixes and spending reversals.',
-    source: 'Al Jazeera',
-  },
-  {
-    no: 19, band: 'protest', colour: '#7d1f3d', badge: 'EUROPE',
+    no: 18, band: 'protest', colour: '#7d1f3d', badge: 'EUROPE',
     place: 'Europe', label: '',
     title: 'Students sweep Europe demanding wages, rents — Spain votes next Sunday',
     line: 'Tens of thousands march in Paris against austerity; Spain holds snap parliamentary elections.',
@@ -196,36 +189,53 @@ export const TILES = [
 ];
 
 export const MORE = [
-  { no: 20, kicker: 'Gulf of Finland', text: 'second Russian ship hit in a week: cargo vessel Sparta II struck; Moscow warns of a “dangerous trend”.' },
-  { no: 21, kicker: 'Chicago', text: 'Murray’s 45 and a Jokic triple-double edge the Bulls 151-145 in overtime.' },
-  { no: 22, kicker: 'Brussels', text: 'national anti-austerity strike paralyses Belgian transport for a day.' },
-  { no: 23, kicker: 'Brazil', text: 'Bolsonaro in intensive care with a bowel obstruction; a supercell storm hits the south.' },
-  { no: 24, kicker: 'Seoul', text: 'education minister quits over exam chaos as Seoul readies a market-stabilisation pool.' },
-  { no: 25, kicker: 'Tokyo', text: 'markets closed for a holiday; US futures bounce 2% on the Nvidia rally.' },
-  { no: 26, kicker: 'Libya', text: 'UNSMIL demands an independent probe; eastern govt files UN complaint.' },
-  { no: 27, kicker: 'Moscow', text: 'Kremlin “takes note” of the Merkury sinking; warns of a “dangerous trend”.' },
+  { no: 19, kicker: 'Gulf of Finland', text: 'second Russian ship hit in a week: cargo vessel Sparta II struck; Moscow warns of a “dangerous trend”.' },
+  { no: 20, kicker: 'Chicago', text: 'Murray’s 45 and a Jokic triple-double edge the Bulls 151-145 in overtime.' },
+  { no: 21, kicker: 'Brussels', text: 'national anti-austerity strike paralyses Belgian transport for a day.' },
+  { no: 22, kicker: 'Brazil', text: 'Bolsonaro in intensive care with a bowel obstruction; a supercell storm hits the south.' },
+  { no: 23, kicker: 'Seoul', text: 'education minister quits over exam chaos as Seoul readies a market-stabilisation pool.' },
+  { no: 24, kicker: 'Tokyo', text: 'markets closed for a holiday; US futures bounce 2% on the Nvidia rally.' },
+  { no: 25, kicker: 'Libya', text: 'UNSMIL demands an independent probe; eastern govt files UN complaint.' },
+  { no: 26, kicker: 'Moscow', text: 'Kremlin “takes note” of the Merkury sinking; warns of a “dangerous trend”.' },
+  { no: 27, kicker: 'Berlin', text: 'German media: NATO intel sees Russia planning a nuclear-armed satellite this year.' },
+  { no: 28, kicker: 'Tehran', text: 'Iran vows “all available means” against the US naval blockade of Hormuz.' },
+  { no: 29, kicker: 'Washington', text: 'Trump sets a post-New-Year deadline to resume strikes on Iran absent a deal.' },
+  { no: 30, kicker: 'Brussels', text: 'von der Leyen unveils the EU’s 22nd sanctions package against Russia’s war.' },
+  { no: 31, kicker: 'Riyadh', text: 'nine-month deficit hits the full-year forecast; blamed for COP31 collapse.' },
+  { no: 32, kicker: 'Copenhagen', text: 'bomb threats against schools probed in Germany and Denmark.' },
+  { no: 33, kicker: 'Doha', text: 'Tilak Varma hits a second straight century, vs Pakistan A in the Rising Stars cup.' },
+  { no: 34, kicker: 'Dhaka', text: 'garment-worker unrest and Grameen Bank tensions enter a third week.' },
+  { no: 35, kicker: 'Iowa', text: 'Army plans “controlled detonation” of five tons of lead azide despite a court hold.' },
+  { no: 36, kicker: 'Kyiv', text: 'Ukraine logs 2,700 Russian drones and 1,460 glide bombs in the past week.' },
+  { no: 37, kicker: 'Cairo', text: 'Egypt and Türkiye talk de-escalation on Sudan, Libya and Gaza.' },
+  { no: 38, kicker: 'Jeddah', text: 'Saudi Arabia and Egypt jointly condemn the Khartoum drone attacks.' },
+  { no: 39, kicker: 'Nuuk', text: 'Denmark ratifies the Greenland security deal.' },
 ];
 
+// Pin coordinates are percentages of the drawn map frame (art/worldmap.png),
+// measured against a fine 2%-grid probe rendered over the bitmap: the AI map
+// compresses Europe (UK near x=48, Italy from x=51.5) and narrows the Levant,
+// so every pin was read off that grid, not off real-world longitude. Gaza has
+// no pin of its own — the Levant is too narrow for two circles; story 12's
+// line carries it.
 export const PINS = [
-  { no: 1, x: 54.0, y: 25.0 },
-  { no: 2, x: 50.5, y: 33.0 },
-  { no: 3, x: 19.0, y: 24.0 },
-  { no: 4, x: 53.0, y: 21.5 },
-  { no: 5, x: 60.5, y: 31.0 },
-  { no: 6, x: 55.0, y: 22.5 },
-  { no: 7, x: 60.0, y: 17.0 },
-  { no: 8, x: 57.5, y: 18.0 },
-  { no: 9, x: 68.0, y: 29.5 },
-  { no: 10, x: 23.0, y: 17.5 },
-  { no: 11, x: 90.5, y: 35.0 },
-  { no: 12, x: 55.5, y: 27.5 },
-  { no: 13, x: 55.5, y: 27.5 },
-  { no: 14, x: 56.5, y: 33.5 },
-  { no: 15, x: 49.0, y: 33.0 },
-  { no: 16, x: 28.0, y: 34.0 },
-  { no: 17, x: 19.0, y: 24.0 },
-  { no: 18, x: 50.0, y: 19.0 },
-  { no: 19, x: 51.5, y: 20.5 },
+  { no: 1, x: 56.3, y: 36.2 },   // Antalya — Türkiye south coast
+  { no: 2, x: 52.8, y: 44.5 },   // Benghazi — Cyrenaica bulge
+  { no: 3, x: 29.8, y: 31.5 },   // Washington DC
+  { no: 4, x: 52.0, y: 25.3 },   // Poland
+  { no: 5, x: 62.0, y: 46.5 },   // Strait of Hormuz
+  { no: 6, x: 54.5, y: 28.5 },   // Kyiv region
+  { no: 7, x: 62.8, y: 24.0 },   // Perm / Tatarstan
+  { no: 8, x: 66.0, y: 47.5 },   // Delhi
+  { no: 9, x: 51.7, y: 34.8 },   // Turin
+  { no: 10, x: 16.8, y: 34.5 },  // Las Vegas
+  { no: 11, x: 94.2, y: 89.0 },  // Wellington
+  { no: 12, x: 57.5, y: 41.5 },  // Israel / Gaza (Levant coast)
+  { no: 14, x: 56.8, y: 60.0 },  // Khartoum
+  { no: 15, x: 49.5, y: 63.0 },  // Bayelsa
+  { no: 16, x: 25.8, y: 51.0 },  // Haiti
+  { no: 17, x: 22.5, y: 34.0 },  // United States (midterms)
+  { no: 18, x: 49.7, y: 28.8 },  // Paris / Brussels
 ];
 
 export const DATE_CHECK = {
