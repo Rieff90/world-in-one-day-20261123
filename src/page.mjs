@@ -122,21 +122,21 @@ const html = `<!doctype html>
                letter-spacing: .03em; color: #33415a; justify-content: space-between; }
   .clockline b { color: #7d1f3d; }
 
-  .heroes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 7px; }
+  .heroes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px; }
   .hero { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column;
           position: relative; }
-  .hero-art { position: relative; height: 104px; overflow: hidden; }
+  .hero-art { position: relative; height: 96px; overflow: hidden; }
   .hero-art svg, .hero-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
   .chip { position: absolute; bottom: 5px; left: 5px; color: #fff;
           font-family: "Segoe UI", Arial, sans-serif; font-size: 7.6px; font-weight: 800;
           letter-spacing: .06em; padding: 2px 5px; border-radius: 2px;
           box-shadow: 0 0 0 1.2px rgba(255,255,255,.85); }
-  .chip.sm { font-size: 6.8px; bottom: 4px; left: 4px; }
+  .chip.sm { font-size: 7.6px; bottom: 5px; left: 5px; }
   .corner { position: absolute; bottom: 5px; right: 5px; color: #fff;
             font-family: "Segoe UI", Arial, sans-serif; font-size: 6.6px; font-weight: 700;
             letter-spacing: .08em; opacity: .95;
             text-shadow: 0 0 3px rgba(0,0,0,.55); }
-  .hero-no { position: absolute; top: 96px; left: 7px; width: 15px; height: 15px;
+  .hero-no { position: absolute; top: 88px; left: 7px; width: 15px; height: 15px;
              border-radius: 50%; background: #fff; border: 1.6px solid #12131a;
              color: #12131a; font-family: "Segoe UI", Arial, sans-serif; font-weight: 800;
              font-size: 9px; display: flex; align-items: center; justify-content: center;
@@ -146,52 +146,54 @@ const html = `<!doctype html>
           letter-spacing: .07em; text-transform: uppercase; color: #7d1f3d;
           margin: 1px 0 2px 18px; }
   .hero h2 { font-size: 14.5px; line-height: 1.06; letter-spacing: -.012em; margin-bottom: 2px; }
-  .hero p { font-size: 8.2px; line-height: 1.24; color: #2e3b52; }
+  .hero p { font-size: 8.2px; line-height: 1.22; color: #2e3b52; }
 
-  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px 7px; margin-bottom: 7px; }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px 8px; margin-bottom: 6px; }
   .tile { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column; }
-  .tile-art { position: relative; height: 36px; overflow: hidden; }
+  .tile-art { position: relative; height: 38px; overflow: hidden; }
   .tile-art svg, .tile-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
-  .tile-body { padding: 3px 5px 4px; display: flex; flex-direction: column; flex: 1; }
-  .tile .kick { margin: 0 0 1.5px; font-size: 6.2px; color: #12131a;
+  .tile-body { padding: 4px 7px 5px; display: flex; flex-direction: column; flex: 1; }
+  .tile .kick { margin: 0 0 2px; font-size: 7.4px; color: #12131a;
                 display: flex; align-items: center; gap: 3px; }
-  .tno { display: inline-flex; width: 11px; height: 11px; border-radius: 50%;
+  .tno { display: inline-flex; width: 13px; height: 13px; border-radius: 50%;
          background: #7d1f3d; color: #fff; align-items: center; justify-content: center;
-         font-size: 6.6px; flex: none; }
+         font-size: 7.8px; flex: none; }
   .lbl { font-style: normal; color: #b3541e; border: .8px solid #b3541e;
          border-radius: 2px; padding: 0 2px; font-size: 5.6px; letter-spacing: .05em; }
-  .tile h3 { font-size: 9.6px; line-height: 1.08; letter-spacing: -.006em; margin-bottom: 1.5px; }
-  .tile p { font-size: 7.2px; line-height: 1.18; color: #2e3b52; }
-  .tile .src { padding-top: 1.5px; }
+  .tile h3 { font-size: 11.8px; line-height: 1.05; letter-spacing: -.008em; margin-bottom: 2px;
+             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tile p { font-size: 8.4px; line-height: 1.18; color: #2e3b52;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tile .src { padding-top: 2px; font-size: 6.4px; }
 
   .src { font-family: "Segoe UI", Arial, sans-serif; font-size: 5.6px; letter-spacing: .04em;
          color: #8a8175; margin-top: auto; padding-top: 2.5px; text-transform: uppercase; }
 
-  .bottom { display: grid; grid-template-columns: 1fr 1.9fr; gap: 8px; flex: 1 1 auto; min-height: 0; }
+  .bottom { display: grid; grid-template-columns: 1fr 1.9fr; gap: 8px; height: 150px; overflow: hidden; }
   .more h4, .mapbox h4 { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.8px;
        font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #7d1f3d;
        border-top: 2px solid #12131a; padding-top: 3px; margin-bottom: 3px; }
   .more h4 span { color: #4a5568; font-weight: 700; }
-  .more ul { list-style: none; column-count: 2; column-gap: 14px; }
-  .more li { font-size: 7.1px; line-height: 1.28; color: #24334b; break-inside: avoid;
+  .more ul { list-style: none; column-count: 2; column-gap: 10px; }
+  .more li { font-size: 7.2px; line-height: 1.22; color: #24334b; break-inside: avoid;
              margin-bottom: 1.6px; padding-left: 14px; text-indent: -14px; }
   .more .no { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px; font-weight: 700;
               color: #7d1f3d; display: inline-block; width: 12px; text-indent: 0; }
   .more b { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.5px; letter-spacing: .04em;
             text-transform: uppercase; color: #12131a; }
-  .mapbox { display: flex; flex-direction: column; min-height: 0; }
+  .mapbox { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
   .mapbox .sub { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px;
                  color: #4a5568; margin: -2px 0 3px; }
-  .worldmap { width: 100%; height: 150px; display: block; }
+  .worldmap { width: 100%; height: 74px; display: block; }
   .legend { display: flex; flex-wrap: wrap; gap: 2px 9px; margin-top: 3px;
             font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px;
             letter-spacing: .05em; text-transform: uppercase; color: #4a5568; }
   .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
               background: #8c1d1d; margin-right: 3px; vertical-align: -1px; }
-  .check { border: 1.4px solid #7d1f3d; background: #fdf3ee; padding: 3.5px 6px; margin-top: 4px; }
+  .check { border: 1.4px solid #7d1f3d; background: #fdf3ee; padding: 3px 5px; margin-top: 3px; }
   .check h5 { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.8px; font-weight: 800;
               letter-spacing: .1em; text-transform: uppercase; color: #7d1f3d; margin-bottom: 2px; }
-  .check p { font-size: 6.6px; line-height: 1.25; color: #33415a; }
+  .check p { font-size: 6.4px; line-height: 1.2; color: #33415a; height: 30px; overflow: hidden; }
 
   footer { flex: none; margin-top: 4px; border-top: 2px solid #12131a; padding-top: 3px;
            display: flex; justify-content: space-between; gap: 12px;
