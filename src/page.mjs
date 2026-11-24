@@ -5,9 +5,9 @@
 // illustration band (art/<band>.png via bands.mjs, falling back to the
 // hand-written SVG pictograms in art.mjs) so the card reads as an object at
 // 300px, prose is cut to a headline and one line, and breadth lives in a
-// two-column list. Weekend items (GP, tennis final, Test cricket) carry SUN/SAT
-// badges so nothing passes as Monday news that is not. Nothing loads from the
-// network: the band images arrive as data URIs.
+// three-column list. Weekend items (GP, tennis final, Test cricket) carry
+// SUN/SAT badges so nothing passes as Monday news that is not. Nothing loads
+// from the network: the band images and the map arrive as data URIs.
 
 import { writeFileSync, mkdtempSync, rmSync, copyFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
