@@ -14,7 +14,7 @@ import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
-import { band } from './bands.mjs';
+import { band, mapUri } from './bands.mjs';
 import {
   DAY, LEADS, TILES, MORE, STATS, REGIONS, TIMELINE, PINS, DATE_CHECK, FOOTER,
 } from './stories.mjs';
@@ -59,23 +59,18 @@ const tileHtml = (t) => `
 const moreHtml = (m) => `
   <li><span class="no">${m.no}</span><b>${esc(m.kicker)}:</b> ${esc(m.text)}</li>`;
 
+const MAP_URI = mapUri();
+
+// The map is the illustration drawn for this page (art/worldmap.png), with the
+// story pins laid over it. Pin coordinates are percentages of the map's frame,
+// so they stay put whatever the map's rendered size.
 const WORLD = `
-<svg viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" class="worldmap">
-  <rect width="1000" height="500" fill="#dfe8e4"/>
-  <g fill="#a9c0b8" stroke="#7d9a90" stroke-width="1">
-    <path d="M120,120 L210,95 L280,110 L300,160 L275,205 L250,235 L215,250 L185,235 L165,195 L140,170 Z"/>
-    <path d="M255,250 L300,240 L325,275 L318,330 L295,395 L270,430 L250,405 L245,350 L235,300 Z"/>
-    <path d="M455,110 L500,95 L540,105 L560,130 L545,155 L515,165 L485,155 L465,135 Z"/>
-    <path d="M470,175 L530,170 L560,205 L555,260 L530,320 L505,375 L480,395 L465,350 L455,285 L450,225 Z"/>
-    <path d="M555,105 L640,90 L740,100 L820,120 L870,155 L860,200 L820,215 L775,200 L735,225 L700,210 L660,220 L620,195 L585,165 L565,135 Z"/>
-    <path d="M690,240 L740,235 L760,270 L745,310 L715,320 L690,290 Z"/>
-    <path d="M845,290 L895,285 L910,315 L890,345 L855,335 Z"/>
-    <path d="M300,105 L360,98 L380,118 L350,132 L310,128 Z"/>
-  </g>
+<svg viewBox="0 0 100 50" preserveAspectRatio="xMidYMid meet" class="worldmap">
+  <image href="${MAP_URI}" x="0" y="0" width="100" height="50" preserveAspectRatio="xMidYMid meet"/>
   ${PINS.map((p) => `
   <g>
-    <circle cx="${p.x * 10}" cy="${p.y * 5}" r="8.5" fill="#8c1d1d" stroke="#fff" stroke-width="1.6"/>
-    <text x="${p.x * 10}" y="${p.y * 5 + 3.2}" text-anchor="middle" font-size="8"
+    <circle cx="${p.x}" cy="${p.y * 0.5}" r="1.5" fill="#8c1d1d" stroke="#fff" stroke-width="0.3"/>
+    <text x="${p.x}" y="${p.y * 0.5 + 0.55}" text-anchor="middle" font-size="1.35"
           font-family="Segoe UI, Arial, sans-serif" font-weight="700" fill="#fff">${p.no}</text>
   </g>`).join('')}
 </svg>`;
@@ -150,9 +145,9 @@ const html = `<!doctype html>
 
   .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px 8px; margin-bottom: 6px; }
   .tile { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column; }
-  .tile-art { position: relative; height: 38px; overflow: hidden; }
+  .tile-art { position: relative; height: 24px; overflow: hidden; }
   .tile-art svg, .tile-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
-  .tile-body { padding: 4px 7px 5px; display: flex; flex-direction: column; flex: 1; }
+  .tile-body { padding: 2px 6px 3px; display: flex; flex-direction: column; flex: 1; }
   .tile .kick { margin: 0 0 2px; font-size: 7.4px; color: #12131a;
                 display: flex; align-items: center; gap: 3px; }
   .tno { display: inline-flex; width: 13px; height: 13px; border-radius: 50%;
@@ -160,40 +155,41 @@ const html = `<!doctype html>
          font-size: 7.8px; flex: none; }
   .lbl { font-style: normal; color: #b3541e; border: .8px solid #b3541e;
          border-radius: 2px; padding: 0 2px; font-size: 5.6px; letter-spacing: .05em; }
-  .tile h3 { font-size: 11.8px; line-height: 1.05; letter-spacing: -.008em; margin-bottom: 2px;
+  .tile h3 { font-size: 10.8px; line-height: 1.03; letter-spacing: -.008em; margin-bottom: 2px;
              display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .tile p { font-size: 8.4px; line-height: 1.18; color: #2e3b52;
+  .tile p { font-size: 7.8px; line-height: 1.14; color: #2e3b52;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .tile .src { padding-top: 2px; font-size: 6.4px; }
+  .tile .src { padding-top: 0.5px; font-size: 6px; }
 
   .src { font-family: "Segoe UI", Arial, sans-serif; font-size: 5.6px; letter-spacing: .04em;
          color: #8a8175; margin-top: auto; padding-top: 2.5px; text-transform: uppercase; }
 
-  .bottom { display: grid; grid-template-columns: 1fr 1.9fr; gap: 8px; height: 150px; overflow: hidden; }
+  .bottom { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; flex: 1 1 auto; min-height: 0; }
   .more h4, .mapbox h4 { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.8px;
        font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #7d1f3d;
        border-top: 2px solid #12131a; padding-top: 3px; margin-bottom: 3px; }
   .more h4 span { color: #4a5568; font-weight: 700; }
-  .more ul { list-style: none; column-count: 2; column-gap: 10px; }
+  .more ul { list-style: none; column-count: 3; column-gap: 9px; }
   .more li { font-size: 7.2px; line-height: 1.22; color: #24334b; break-inside: avoid;
              margin-bottom: 1.6px; padding-left: 14px; text-indent: -14px; }
   .more .no { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px; font-weight: 700;
               color: #7d1f3d; display: inline-block; width: 12px; text-indent: 0; }
   .more b { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.5px; letter-spacing: .04em;
             text-transform: uppercase; color: #12131a; }
-  .mapbox { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .mapbox { display: flex; flex-direction: column; min-height: 0; }
+  .mapbox svg.worldmap { flex: none; }
   .mapbox .sub { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px;
-                 color: #4a5568; margin: -2px 0 3px; }
-  .worldmap { width: 100%; height: 74px; display: block; }
+                 color: #4a5568; margin: -2px 0 2px; }
+  .worldmap { width: 100%; height: 128px; min-height: 128px; display: block; flex: none; }
   .legend { display: flex; flex-wrap: wrap; gap: 2px 9px; margin-top: 3px;
             font-family: "Segoe UI", Arial, sans-serif; font-size: 6.4px;
             letter-spacing: .05em; text-transform: uppercase; color: #4a5568; }
   .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
               background: #8c1d1d; margin-right: 3px; vertical-align: -1px; }
-  .check { border: 1.4px solid #7d1f3d; background: #fdf3ee; padding: 3px 5px; margin-top: 3px; }
+  .check { border: 1.4px solid #7d1f3d; background: #fdf3ee; padding: 2.5px 5px; margin-top: 3px; }
   .check h5 { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.8px; font-weight: 800;
               letter-spacing: .1em; text-transform: uppercase; color: #7d1f3d; margin-bottom: 2px; }
-  .check p { font-size: 6.4px; line-height: 1.2; color: #33415a; height: 30px; overflow: hidden; }
+  .check p { font-size: 6.2px; line-height: 1.16; color: #33415a; }
 
   footer { flex: none; margin-top: 4px; border-top: 2px solid #12131a; padding-top: 3px;
            display: flex; justify-content: space-between; gap: 12px;

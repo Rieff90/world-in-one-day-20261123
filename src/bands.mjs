@@ -31,6 +31,9 @@ const dataUri = (name) => {
 
 // Returns the band's markup: the illustration if one was rendered, else the
 // hand-written SVG pictogram for that band.
+// The world map drawn for this page, embedded the same way.
+export const mapUri = () => dataUri('worldmap') ?? '';
+
 export const band = (name, colour) => {
   const uri = dataUri(name);
   if (!uri) return ART[name](colour);
