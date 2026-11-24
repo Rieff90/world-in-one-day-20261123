@@ -1,2 +1,6 @@
 out/
 out-test/
+ai-art-test/
+fork-prompt.txt
+fork-system-prompt.txt
+PLAN.md

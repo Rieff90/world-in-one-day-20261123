@@ -39,15 +39,17 @@ export const ART = {
     <circle cx="166" cy="66" r="2.6" fill="#f2b134"/>
     <path d="M170 66 L190 66" stroke="#f2b134" stroke-width="1.6" stroke-dasharray="3 3"/>`),
 
-  // Nvidia eye with a rising arrow.
+  // A GPU die: green board, chip package, heatsink fins, and a rising arrow.
   nvda: (bg) => svg(`
     <rect width="${W}" height="${H}" fill="${bg}"/>
-    <path d="M30 40 Q70 14 110 40 Q70 66 30 40 Z" fill="#e8e2d2" stroke="${ink}" stroke-width="2.6"/>
-    <circle cx="70" cy="40" r="12" fill="${ink}"/>
-    <circle cx="74" cy="36" r="4" fill="#fff"/>
-    <path d="M118 58 L150 30 L144 30 M150 30 L150 38" stroke="#7ee08a" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <path d="M112 64 Q140 40 166 22" stroke="#7ee08a" stroke-width="2.4" fill="none" stroke-dasharray="4 4"/>
-    <text x="150" y="64" font-family="Arial" font-weight="bold" font-size="15" fill="#e8e2d2">+33%</text>`),
+    <rect x="16" y="22" width="104" height="46" rx="3" fill="#1b2a1b" stroke="#7ee08a" stroke-width="2.2"/>
+    <rect x="30" y="32" width="46" height="26" rx="2" fill="#2f4a2f" stroke="#7ee08a" stroke-width="1.6"/>
+    <rect x="40" y="39" width="26" height="12" rx="1" fill="#7ee08a"/>
+    ${[0,1,2,3,4,5,6].map(i => `<rect x="${24 + i * 6}" y="62" width="3" height="6" fill="#7ee08a"/>`).join('')}
+    ${[0,1,2,3,4,5,6].map(i => `<rect x="${24 + i * 6}" y="22" width="3" height="6" fill="#7ee08a"/>`).join('')}
+    ${[0,1,2,3,4].map(i => `<rect x="110" y="${28 + i * 8}" width="6" height="4" fill="#7ee08a"/>`).join('')}
+    <path d="M132 60 L162 30 L156 30 M162 30 L162 36" stroke="#7ee08a" stroke-width="4.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="132" y="72" font-family="Arial" font-weight="bold" font-size="15" fill="#e8e2d2">+33%</text>`),
 
   // NATO compass rose over a missile silhouette.
   nato: (bg) => svg(`

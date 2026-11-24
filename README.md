@@ -5,14 +5,22 @@
 [![reward](https://make.fun/badge/news-image-20261123/Rieff90/world-in-one-day-20261123/reward.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 
 Monday 23 November 2026 summed up in one image: 39 stories across five continents on a single
-front page. Every hero and every tile carries a flat hand-drawn SVG pictogram — a NO DEAL stamp
-falling off the COP31 hall, a corvette going under at Benghazi as a sea drone races in, the
-Nvidia eye with a +33% arrow, a compass rose over a Kh-101, a burning tanker, a skull over a
-hazard grid — because an object survives the thumbnail where prose does not. Breadth is carried
-by a two-column list of one-line items, the day's six figures sit in a stat strip, a clock line
-runs the day in UTC, a pin map shows where it happened, and a visible date check records what
-was kept out and why. Weekend results that a Monday paper rounds up (Vegas GP, the Turin final,
-Wellington's 720/9) carry SUN badges so nothing passes as Monday news that is not.
+front page. Every hero and every tile carries a flat-vector illustration — the COP31 hall
+cracking as its text blows away, a corvette going under at Benghazi as a sea drone races in, a
+green GPU die with its +33% arrow, a radar and a falling Kh-101, a burning supertanker, a gas
+mask over cracked ground — because an object survives the thumbnail where prose does not.
+
+The eighteen illustrations were drawn by an image model from one locked prompt template: flat
+vector editorial, two-tone cream `#F6F1E3` and dark ink, solid band colour, no text, no logos,
+no gradients, no photorealism. That single template is what keeps eighteen panels in one visual
+language. `src/art.mjs` keeps the hand-written SVG pictograms as the fallback for any band
+without a rendered PNG.
+
+Breadth is carried by a two-column list of one-line items, the day's six figures sit in a stat
+strip, a clock line runs the day in UTC, a pin map shows where it happened, and a visible date
+check records what was kept out and why. Weekend results that a Monday paper rounds up (Vegas
+GP, the Turin final, Wellington's 720/9) carry SUN badges so nothing passes as Monday news that
+is not.
 
 ## Run it
 
@@ -29,9 +37,10 @@ model call: the judge sees exactly the bytes of that file, and both runs copy th
 node src/page.mjs out/entry.png   # renders the page with headless Chrome, writes out/entry.png
 ```
 
-`src/stories.mjs` holds the day's 39 verified stories with their sources; `src/art.mjs` holds
-the 18 hand-written pictograms; `src/page.mjs` turns them into one 1024×1024 page and
-screenshots it.
+`src/stories.mjs` holds the day's 39 verified stories with their sources; `art/` holds the
+eighteen rendered band illustrations; `src/bands.mjs` embeds them as data URIs (falling back to
+the hand-written pictograms in `src/art.mjs`); `src/page.mjs` turns the whole day into one
+1024×1024 page and screenshots it.
 
 ## License
 

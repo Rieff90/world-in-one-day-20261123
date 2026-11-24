@@ -13,6 +13,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { ART } from './art.mjs';
+import { band } from './bands.mjs';
 import {
   DAY, LEADS, TILES, MORE, STATS, REGIONS, TIMELINE, PINS, DATE_CHECK, FOOTER,
 } from './stories.mjs';
@@ -26,7 +27,7 @@ const esc = (s) =>
 // Hero: illustration band with a floating badge chip, then the text block.
 const heroHtml = (l) => `
   <article class="hero">
-    <div class="hero-art" style="background:${l.colour}">${ART[l.band](l.colour)}
+    <div class="hero-art" style="background:${l.colour}">${band(l.band, l.colour)}
       <span class="chip" style="background:${l.colour}">${esc(l.badge)}</span>
       <span class="corner">${esc(l.tag)}</span>
     </div>
@@ -42,7 +43,7 @@ const heroHtml = (l) => `
 // Tile: slim illustration band, badge chip overlapping it, one headline + line.
 const tileHtml = (t) => `
   <article class="tile">
-    <div class="tile-art" style="background:${t.colour}">${ART[t.band](t.colour)}
+    <div class="tile-art" style="background:${t.colour}">${band(t.band, t.colour)}
       <span class="chip sm" style="background:${t.colour}">${esc(t.badge)}</span>
     </div>
     <div class="tile-body">
@@ -122,17 +123,17 @@ const html = `<!doctype html>
   .heroes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 7px; }
   .hero { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column;
           position: relative; }
-  .hero-art { position: relative; height: 96px; }
-  .hero-art svg { width: 100%; height: 100%; display: block; }
-  .chip { position: absolute; top: 5px; left: 5px; color: #fff;
+  .hero-art { position: relative; height: 104px; }
+  .hero-art svg, .hero-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .chip { position: absolute; bottom: 5px; left: 5px; color: #fff;
           font-family: "Segoe UI", Arial, sans-serif; font-size: 7.6px; font-weight: 800;
           letter-spacing: .06em; padding: 2px 5px; border-radius: 2px;
           box-shadow: 0 0 0 1.2px rgba(255,255,255,.85); }
-  .chip.sm { font-size: 6.8px; top: 4px; left: 4px; }
-  .corner { position: absolute; top: 5px; right: 5px; color: #fff;
+  .chip.sm { font-size: 6.8px; bottom: 4px; left: 4px; }
+  .corner { position: absolute; bottom: 5px; right: 5px; color: #fff;
             font-family: "Segoe UI", Arial, sans-serif; font-size: 6.6px; font-weight: 700;
             letter-spacing: .08em; opacity: .95; }
-  .hero-no { position: absolute; top: 88px; left: 7px; width: 15px; height: 15px;
+  .hero-no { position: absolute; top: 96px; left: 7px; width: 15px; height: 15px;
              border-radius: 50%; background: #fff; border: 1.6px solid #12131a;
              color: #12131a; font-family: "Segoe UI", Arial, sans-serif; font-weight: 800;
              font-size: 9px; display: flex; align-items: center; justify-content: center;
@@ -147,6 +148,7 @@ const html = `<!doctype html>
   .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px 7px; margin-bottom: 7px; }
   .tile { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column; }
   .tile-art { position: relative; height: 36px; }
+  .tile-art svg, .tile-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
   .tile-art svg { width: 100%; height: 100%; display: block; }
   .tile-body { padding: 3px 5px 4px; display: flex; flex-direction: column; flex: 1; }
   .tile .kick { margin: 0 0 1.5px; font-size: 6.2px; color: #12131a;
