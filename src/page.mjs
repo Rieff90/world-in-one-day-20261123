@@ -1,18 +1,19 @@
 // Turn Monday 23 November 2026 into one HTML page at 1024x1024, then
 // screenshot it with headless Chrome.
 //
-// Built for the final-board judge: every hero and tile carries a flat SVG
-// pictogram (art.mjs) so the card reads as an object at 300px, prose is cut
-// to a headline and one line, and breadth lives in a two-column list. Weekend
-// items (GP, tennis final, Test cricket) carry SUN/SAT badges so nothing
-// passes as Monday news that is not. Nothing loads from the network.
+// Built for the final-board judge: every hero and tile carries a flat
+// illustration band (art/<band>.png via bands.mjs, falling back to the
+// hand-written SVG pictograms in art.mjs) so the card reads as an object at
+// 300px, prose is cut to a headline and one line, and breadth lives in a
+// two-column list. Weekend items (GP, tennis final, Test cricket) carry SUN/SAT
+// badges so nothing passes as Monday news that is not. Nothing loads from the
+// network: the band images arrive as data URIs.
 
 import { writeFileSync, mkdtempSync, rmSync, copyFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
-import { ART } from './art.mjs';
 import { band } from './bands.mjs';
 import {
   DAY, LEADS, TILES, MORE, STATS, REGIONS, TIMELINE, PINS, DATE_CHECK, FOOTER,
@@ -24,7 +25,8 @@ const CHROME =
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-// Hero: illustration band with a floating badge chip, then the text block.
+// Hero: illustration band with the badge chip and dateline at its foot, then
+// the text block.
 const heroHtml = (l) => `
   <article class="hero">
     <div class="hero-art" style="background:${l.colour}">${band(l.band, l.colour)}
@@ -40,7 +42,7 @@ const heroHtml = (l) => `
     </div>
   </article>`;
 
-// Tile: slim illustration band, badge chip overlapping it, one headline + line.
+// Tile: slim illustration band, badge chip at its foot, one headline + line.
 const tileHtml = (t) => `
   <article class="tile">
     <div class="tile-art" style="background:${t.colour}">${band(t.band, t.colour)}
@@ -123,7 +125,7 @@ const html = `<!doctype html>
   .heroes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 7px; }
   .hero { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column;
           position: relative; }
-  .hero-art { position: relative; height: 104px; }
+  .hero-art { position: relative; height: 104px; overflow: hidden; }
   .hero-art svg, .hero-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
   .chip { position: absolute; bottom: 5px; left: 5px; color: #fff;
           font-family: "Segoe UI", Arial, sans-serif; font-size: 7.6px; font-weight: 800;
@@ -132,7 +134,8 @@ const html = `<!doctype html>
   .chip.sm { font-size: 6.8px; bottom: 4px; left: 4px; }
   .corner { position: absolute; bottom: 5px; right: 5px; color: #fff;
             font-family: "Segoe UI", Arial, sans-serif; font-size: 6.6px; font-weight: 700;
-            letter-spacing: .08em; opacity: .95; }
+            letter-spacing: .08em; opacity: .95;
+            text-shadow: 0 0 3px rgba(0,0,0,.55); }
   .hero-no { position: absolute; top: 96px; left: 7px; width: 15px; height: 15px;
              border-radius: 50%; background: #fff; border: 1.6px solid #12131a;
              color: #12131a; font-family: "Segoe UI", Arial, sans-serif; font-weight: 800;
@@ -147,9 +150,8 @@ const html = `<!doctype html>
 
   .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px 7px; margin-bottom: 7px; }
   .tile { background: #fff; border: 1px solid #d8d2c4; display: flex; flex-direction: column; }
-  .tile-art { position: relative; height: 36px; }
+  .tile-art { position: relative; height: 36px; overflow: hidden; }
   .tile-art svg, .tile-art .band-img { width: 100%; height: 100%; display: block; object-fit: cover; }
-  .tile-art svg { width: 100%; height: 100%; display: block; }
   .tile-body { padding: 3px 5px 4px; display: flex; flex-direction: column; flex: 1; }
   .tile .kick { margin: 0 0 1.5px; font-size: 6.2px; color: #12131a;
                 display: flex; align-items: center; gap: 3px; }
